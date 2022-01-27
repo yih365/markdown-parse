@@ -11,7 +11,7 @@ public class MarkdownParse {
         // the next )
         int currentIndex = 0;
         int previousIndex = -1;
-        while(currentIndex < markdown.length() && markdown.substring(currentIndex).contains("[")) {
+        while(currentIndex < markdown.length()) {
             previousIndex = currentIndex;
 
             int nextOpenBracket = markdown.indexOf("[", currentIndex);
@@ -19,8 +19,7 @@ public class MarkdownParse {
             int openParen = markdown.indexOf("(", nextCloseBracket);
             int closeParen = markdown.indexOf(")", openParen);
 
-            if (nextCloseBracket == -1 || nextCloseBracket == -1 || openParen == -1 || closeParen == -1) break;
-
+            
             toReturn.add(markdown.substring(openParen + 1, closeParen));
             currentIndex = closeParen + 1;
 
