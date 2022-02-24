@@ -17,12 +17,21 @@ public class MarkdownParse {
             previousIndex = currentIndex;
 
             int nextOpenBracket = markdown.indexOf("[", currentIndex);
+
+            // check for image links
+            if(nextOpenBracket != 0 && markdown.charAt(nextOpenBracket -1) == '!'){   
+                currentIndex = nextOpenBracket+1;  
+                continue;   
+            }
+
             int openParen = markdown.indexOf("(", nextOpenBracket);
             
-            if (openParen <= 0 || (openParen > 0 && markdown.charAt(openParen-1) != ']')) {
-                break;
+            // check for ")["
+            if (openParen > 0 && markdown.charAt(openParen-1) != ']') {
+                currentIndex = openParen + 1;
+                continue;
             }
-            
+
             int closeParen = markdown.indexOf(")", openParen);
 
             if (nextOpenBracket == -1 
